@@ -157,15 +157,16 @@ export type TUserInfo = TDeliveryInfo | TContactInfo
 - `checkValidation(data: Record<keyof TContactInfo, string>): boolean;` - проверяет валидность введенных данных
 - `setInfo(data: TContactInfo): void;` - метод записывает данные пользователя 
 
-#### Класс User
-Класс отвечает за хранение и работу с данными пользователя (покупателя) \
+#### Класс OrderInfo
+Класс отвечает за хранение и работу с данными заказа \
 Для этого поля класса содержат следующие данные
-- `_order: TDeliveryInfo;` - информация о доставке
-- `_contacts: TContactInfo;` - контакты
+- `_delivery: IDeliveryInfo;` - информация о доставке
+- `_contacts: IContactInfo;` - контакты
+- `_order: IOrderList;` - заказ
 
 Для работы с данными класс предоставляет следующий набор методов:
-- `getUserInfo(): TUserInfo;` - возвращает данные пользователя
-- геттеры и сеттеры для `_order` и `_contacts`
+- `getOrder(): IOrder;` - возвращает данные заказа
+- геттеры и сеттеры для `_delivery`, `_contacts` и `_order`
 
 ### Слой отображения
 Отвечает за интерфейс взаимодействия с пользователем. Генерирует события в ответ на действия пользователя. 

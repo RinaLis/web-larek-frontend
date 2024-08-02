@@ -64,9 +64,10 @@ export interface IDeliveryInfo {
     setInfo(data: TDeliveryInfo): void;
 }
 
-export interface IUser {
-    _order: IDeliveryInfo;
+export interface IOrderInfo {
+    _delivery: IDeliveryInfo;
     _contacts: IContactInfo;
+    _order: IOrderList;
 
-    getUserInfo(): TUserInfo;
+    getInfo(): IOrder;
 }
