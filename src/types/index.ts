@@ -48,15 +48,25 @@ export interface IOrderList {
     checkCorrectOrder(): boolean;
 }
 
-export interface IUser {
-    payment: TPayment;
+export interface IContactInfo {
     email: string;
     phone: string;
+
+    checkValidation(data: Record<keyof TContactInfo, string>): boolean;
+    setInfo(data: TContactInfo): void;
+}
+
+export interface IDeliveryInfo {
+    payment: TPayment;
     address: string;
 
-    checkValidationContacts(data: Record<keyof TContactInfo, string>): boolean;
-    checkValidationDelivery(data: Record<keyof TDeliveryInfo, string>): boolean;
+    checkValidation(data: Record<keyof TDeliveryInfo, string>): boolean;
+    setInfo(data: TDeliveryInfo): void;
+}
+
+export interface IUser {
+    _order: IDeliveryInfo;
+    _contacts: IContactInfo;
+
     getUserInfo(): TUserInfo;
-    setDeliveryInfo(data: TDeliveryInfo): void;
-    setContactInfo(data: TContactInfo): void;
 }
