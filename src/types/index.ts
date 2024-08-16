@@ -13,7 +13,7 @@ export type TProductCard = Pick<IProduct, 'image' | 'title' | 'price' | 'categor
 
 export type TOrderItem = Pick<IProduct, 'title' | 'price' | 'id'>
 
-type TPayment = 'online' | 'offline'
+export type TPayment = 'online' | 'offline'
 
 export interface IOrder {
     payment: TPayment;
@@ -31,20 +31,19 @@ export type TContactInfo = Pick<IOrder, 'phone' | 'email'>
 export type TUserInfo = TDeliveryInfo | TContactInfo
 
 export interface IProductList {
-    _products: IProduct[];
+    products: IProduct[];
 
-    setProducts(data: IProduct[]): void;
-    getProduct(id: string): IProduct;
+    getProduct(prodId: string): IProduct;
 }
 
 export interface IOrderList {
-    _products: IProduct[];
-    _total: number;
+    products: IProduct[];
+    total: number;
     events: IEvents;
 
     addProduct(product: IProduct): void;
-    deleteProduct(product: IProduct): void;
-    checkProductInOrder(id: string): boolean;
+    deleteProduct(prodId: string): void;
+    // checkProductInOrder(id: string): boolean;
     checkCorrectOrder(): boolean;
 }
 
@@ -65,9 +64,15 @@ export interface IDeliveryInfo {
 }
 
 export interface IOrderInfo {
-    _delivery: IDeliveryInfo;
-    _contacts: IContactInfo;
-    _order: IOrderList;
-
+    getDelivery(): TDeliveryInfo;
+    getContacts(): TContactInfo;
     getInfo(): IOrder;
+}
+
+export type ApiPostMethods = 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+
+export interface IApi {
+    baseUrl: string;
+    get<T>(uri: string): Promise<T>;
+    post<T>(uri: string, data: object, method?: ApiPostMethods): Promise<T>;
 }

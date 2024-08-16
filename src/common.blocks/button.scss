@@ -17,4 +17,9 @@
     @include mixins.button(white, $primaryLight, $primaryLight);
     border: $hoverBorder;
   }
+
+  &_inactive {
+    @include mixins.button(white, $primary, $primary);
+    cursor: auto;
+  }
 }
