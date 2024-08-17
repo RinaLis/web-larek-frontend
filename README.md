@@ -1,4 +1,5 @@
 # Проектная работа "Веб-ларек"
+Ссылка на GitHub Pages: https://rinalis.github.io/web-larek-frontend/
 
 Стек: HTML, SCSS, TS, Webpack
 
