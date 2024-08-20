@@ -122,6 +122,17 @@ export class CardModal extends Card {
         }
     }
 
+    set price(price: string) {
+        if (price) {
+            this.cardPrice.textContent = `${price} синапсов`;
+        }
+        else {
+            this.cardPrice.textContent = `Бесценно `;
+            this.button = 'Товар не продается';
+            this._button.setAttribute('disabled', "")
+        }
+    }
+
     set button(text: string) {
         this._button.textContent = text
     }
@@ -129,6 +140,7 @@ export class CardModal extends Card {
     get button(): string {
         return this._button.textContent
     }
+    
     set image(image: string) {
         this.cardImage.src = image;
     }
