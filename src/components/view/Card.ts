@@ -89,15 +89,15 @@ export class CardModal extends Card {
 		this.cardCategory = ensureElement<HTMLElement>('.card__category', this.container);
         this.cardText = ensureElement<HTMLElement>('.card__text', this.container)
         this._button = ensureElement<HTMLButtonElement>('.card__button', this.container);
-        this.button = inOrder
+        this.isValid(inOrder);
 
         this._button.addEventListener('click', () => {
             if (this.button == 'В корзину') {
                 this.events.emit('order:add', { id: this.id })
-                this.button = true
+                this.isValid(true);
             } else {
 			    this.events.emit('basket:open', { id: this.id })
-                this.button = false
+                this.isValid(false);
             }
         });
     }
@@ -114,18 +114,21 @@ export class CardModal extends Card {
         this.cardCategory.classList.add(categoryColor[category])
     }
 
-    set button(inOrder: boolean) {
+    isValid(inOrder: boolean) {
         if (inOrder) {
-            this._button.textContent = 'Перейти в корзину'
+            this.button = 'Перейти в корзину'
         } else {
-            this._button.textContent = 'В корзину'
+            this.button = 'В корзину'
         }
+    }
+
+    set button(text: string) {
+        this._button.textContent = text
     }
 
     get button(): string {
         return this._button.textContent
     }
-
     set image(image: string) {
         this.cardImage.src = image;
     }
