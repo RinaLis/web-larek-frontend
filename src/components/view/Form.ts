@@ -1,35 +1,31 @@
-import { TDeliveryInfo } from "../../types";
-import { IEvents } from "../base/events";
+import { IEvents } from '../base/events';
 
 export class Form {
-    protected inputs: NodeListOf<HTMLInputElement>;
+	protected inputs: NodeListOf<HTMLInputElement>;
 	protected _form: HTMLFormElement;
 	protected formName: string;
-    protected errorPlace: HTMLElement;
+	protected errorPlace: HTMLElement;
 	protected submitButton: HTMLButtonElement;
 	protected valuesObject: Record<string, string>;
 
-    protected events: IEvents;
+	protected events: IEvents;
 
-    constructor (form: HTMLFormElement, events: IEvents) {
-        this.events = events;
+	constructor(form: HTMLFormElement, events: IEvents) {
+		this.events = events;
 		this._form = form;
 
-		this.inputs =
-			this._form.querySelectorAll<HTMLInputElement>('.form__input');
+		this.inputs = this._form.querySelectorAll<HTMLInputElement>('.form__input');
 		this.formName = this._form.getAttribute('name');
 		this.submitButton = this._form.querySelector('.submit__button');
-        this.errorPlace = this._form.querySelector('.form__errors');
-		this.valuesObject = {}
+		this.submitButton.disabled = true;
+		this.errorPlace = this._form.querySelector('.form__errors');
+		this.valuesObject = {};
 
 		this._form.addEventListener('submit', (evt) => {
 			evt.preventDefault();
 			this.events.emit(`${this.formName}:submit`, this.getInputValues());
 		});
-		this._form.addEventListener('input', (event: InputEvent) => {
-			const target = event.target as HTMLInputElement;
-			const field = target.name;
-			const value = target.value;
+		this._form.addEventListener('input', () => {
 			this.events.emit(`${this.formName}:input`);
 		});
 	}
@@ -58,9 +54,9 @@ export class Form {
 	set valid(isValid: boolean) {
 		this.submitButton.disabled = !isValid;
 		if (isValid) {
-			this.hideInputError()
+			this.hideInputError();
 		} else {
-			this.showInputError('Необходимо заполнить все поля')
+			this.showInputError('Необходимо заполнить все поля');
 		}
 	}
 
@@ -88,21 +84,21 @@ export class FormWithButton extends Form {
 				if (!target.classList.contains('button_alt-active')) {
 					this.buttons.forEach((button) => {
 						if (button !== target) {
-							button.classList.remove('button_alt-active')
+							button.classList.remove('button_alt-active');
 						}
-					})
+					});
 				}
 				target.classList.toggle('button_alt-active');
 				this.valuesObject['payment'] = value;
 				this.events.emit(`${this.formName}:input`);
-			})
-		})
+			});
+		});
 	}
 
 	reset() {
 		super.reset();
 		this.buttons.forEach((button) => {
-			button.classList.remove('button_alt-active')
-		})
+			button.classList.remove('button_alt-active');
+		});
 	}
 }

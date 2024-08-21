@@ -1,18 +1,17 @@
-import { Component } from "../base/Component";
+import { Component } from '../base/Component';
 
 export interface ICardsContainer {
-    catalog: HTMLElement[];
+	catalog: HTMLElement[];
 }
 
 export class CardsContainer extends Component<ICardsContainer> {
-    protected _catalog: HTMLElement;
-    
+	protected _catalog: HTMLElement;
 
-    constructor(protected container: HTMLElement) {
-        super(container)
-    }
+	constructor(protected container: HTMLElement) {
+		super(container);
+	}
 
-    set catalog(items: HTMLElement[]) {
-        this.container.replaceChildren(...items);
-    }
+	set catalog(items: HTMLElement[]) {
+		this.container.replaceChildren(...items);
+	}
 }

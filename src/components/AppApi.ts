@@ -1,4 +1,4 @@
-import { IApi, IOrder, IProduct } from "../types";
+import { IApi, IOrder, IProduct } from '../types';
 
 interface IProductApi {
 	total: number;
@@ -15,14 +15,19 @@ export class AppApi {
 	}
 
 	getProduct(): Promise<IProduct[]> {
-		return this._baseApi.get<IProductApi>(`/product/`)
-							.then((data: IProductApi) => data.items.map((item) => ({
-								...item,
-								image: this._cdn + item.image
-							})));
+		return this._baseApi
+			.get<IProductApi>(`/product/`)
+			.then((data: IProductApi) =>
+				data.items.map((item) => ({
+					...item,
+					image: this._cdn + item.image,
+				}))
+			);
 	}
 
 	addOrder(data: IOrder): Promise<IOrder> {
-		return this._baseApi.post<IOrder>(`/order`, data).then((order: IOrder) => order);
+		return this._baseApi
+			.post<IOrder>(`/order`, data)
+			.then((order: IOrder) => order);
 	}
 }
